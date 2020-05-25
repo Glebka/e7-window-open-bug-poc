@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>window.opener.postMessage Bug POC</title>
+        <script>
+            window.onload = () => {
+                const btn = document.getElementById('btn');
+                let opened_window = null;
+                btn.onclick = () => {
+                    opened_window = window.open('file://child.html');
+                    console.log('Opened window: ', opened_window);
+                }
+                window.addEventListener("message", (event) => {
+                    const match_or_not = (event.source === opened_window) ? "MATCHES" : "DOESN'T MATCH";
+                    console.log(`The event source window ${match_or_not} created child window`);
+                    console.log(event.data);
+                    console.log('Sender window ', event.source);
+                }, false);
+            }
+        </script>
+    </head>
+    <body>
+        <button id="btn">Open child window</button>
+    </body>
+</html>

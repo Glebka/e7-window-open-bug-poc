@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Child window</title>
+        <script>
+            window.onload = () => {
+                const btn = document.getElementById('btn');
+                btn.onclick = () => {
+                    window.opener.postMessage({
+                        msg: 'hello from child'
+                    });
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <button id="btn">Send message to parent</button>
+    </body>
+</html>
